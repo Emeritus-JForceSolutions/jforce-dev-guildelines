@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC "-//Checkstyle//DTD Suppressions Xpath Experimental//EN" "https://checkstyle.org/dtds/suppressions_xpath_1_2.dtd">
+
+<suppressions>
+    <!-- Suppress HideUtilityClassConstructor for classes with
+    @SpringBootApplication -->
+    <suppress-xpath
+        checks="HideUtilityClassConstructor"
+        query="//CLASS_DEF[./ANNOTATIONS/ANNOTATION[./IDENT[@text='SpringBootApplication']]]" />
+</suppressions>
