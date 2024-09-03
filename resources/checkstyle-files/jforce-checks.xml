@@ -474,9 +474,9 @@ CheckStyle inspired from sun and google's checkstyle
 
         <!-- Suppress HideUtilityClassConstructor for @SpringBootApplication
         classes -->
-        <module name="SuppressionXpathFilter">
+        <!--<module name="SuppressionXpathFilter">
             <property name="file" value="jforce-supression-checks.xml" />
             <property name="optional" value="true" />
-        </module>
+        </module>-->
     </module>
 </module>
