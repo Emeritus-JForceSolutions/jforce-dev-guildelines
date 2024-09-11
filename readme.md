@@ -499,6 +499,11 @@ Push only files that are not dependent on others (e.g., JPA Entities first befor
 * Each branch will be reviewed once you open a Pull Request (PR). Ensure that your branch is clear, contains descriptive commit messages, and abides by the LOC limit.
 After review and merge, create a new branch for the next incremental code addition.
 
+#### Note:
+* Before reading further note that If the feature or fix is small, you may choose to push all the code in one branch or split it into multiple branches, each under 200 LOC. You don't necessarily need to divide the branches layer-wise (e.g., Entity, DTO, Service, Controller separately). In such cases, you can push related components together, such as an Entity and Service Layer in the same branch.
+
+* However, for larger features, it is recommended to follow the layer-wise division to maintain clarity and ease for reviewers.
+
 #### Step-by-Step Example: Building a CRUD Application
 
 * We'll build a simple CRUD application with the following features:
@@ -600,4 +605,6 @@ public class ProductController {
 }
 
 ```
+
+
 By following this structure, you’ll maintain a clean, scalable, and easy-to-manage codebase. The small, incremental approach ensures that each component is reviewed thoroughly without overwhelming reviewers, reducing the risk of introducing bugs and improving the overall quality of the codebase.
