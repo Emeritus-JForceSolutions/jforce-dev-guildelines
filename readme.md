@@ -9,6 +9,8 @@
 
     2. Jforce Solutions Java & Spring Boot Style Guide 
 
+    3. Code Review Guide
+
 ****
 
 ## 1. **Mandatory Development Rules**
@@ -449,3 +451,153 @@ Whenever an implementation comment would be used to define the overall purpose o
 Non-required Javadoc is not strictly required to follow the formatting rules of Sections 44.1.1, 44.1.2, 44.1.3, and 44.2, though it is of course recommended.
 
 ### 47 All Student Pages/Admin Pages UI will be created on React and Will be via RESTfull API.
+
+## Code Review Guide
+
+### Objective
+This document provides guidelines for maintaining a 200-line-of-code (LOC) rule while working on a project, using a structured, bottom-up approach. The goal is to simplify code reviews, ensure clean merges, and maintain code quality.
+
+We will use a hypothetical CRUD application with a focus on the following components:
+
+* JPA Entities
+* DTOs (Data Transfer Objects)
+* Service Layer
+* Controller
+
+* Note: If you are following TDD (test driven development) you can choose to push those test cases along with features.
+
+Each branch will contain small, focused code changes under 200 lines, following a systematic approach, and will be reviewed before merging.
+
+### General Rules
+
+#### Branching:
+
+* Always create branches for each component you are working on.
+Follow a bottom-up approach to ensure code dependencies are maintained. This means starting with the files that are least dependent on others (e.g., Entities), and progressively moving upward.
+
+
+#### Naming Convention:
+
+* Branch names should follow this pattern:
+{shortcutCardName}{featureInfo}{branchInfo}{suffix}
+
+* example:
+    - feature/12345-add-exam-booking-Entities-I
+    - feature/12345-add-exam-booking-Entities-1
+    - feature/12345-add-exam-booking-I-Entities
+    - feature/12345-add-exam-booking-1-Entities
+
+    Suffix is an incrementing number (I, II, III, etc.) or (1, 2, 3, etc.) 
+
+#### Line of Code Limit:
+
+* No branch should have more than 200 lines of code.
+Push only files that are not dependent on others (e.g., JPA Entities first before pushing Services, then DTOs, then Controller).
+
+#### Code Reviews
+
+* Each branch will be reviewed once you open a Pull Request (PR). Ensure that your branch is clear, contains descriptive commit messages, and abides by the LOC limit.
+After review and merge, create a new branch for the next incremental code addition.
+
+#### Step-by-Step Example: Building a CRUD Application
+
+* We'll build a simple CRUD application with the following features:
+    - Create, Read, Update, Delete operations for a Product. We'll apply the 200 LOC rule and use branches as follows:
+
+#####  Start with JPA Entities (Branch I)
+
+* Branch name: feature/1234-crudproduct-entity-I
+
+* Description:
+    In this branch, we’ll push the basic JPA entity Product for the CRUD operations. Since the entity typically doesn’t depend on other files, it will be the first to be pushed.
+
+```java
+
+@Entity
+@Table(name = "products")
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String description;
+    private Double price;
+
+    // Getters and Setters
+}
+```
+
+##### Create DTOs (Branch II)
+* Branch name: feature/12345-crudproduct-dto-II
+
+* Description:
+Once the entity is merged, we’ll create the DTOs (Data Transfer Objects). DTOs are typically used to transfer data between layers, and they often depend on the entities, so they come after entities.
+
+```java
+public class ProductDTO {
+    private Long id;
+    private String name;
+    private String description;
+    private Double price;
+
+    // Getters and Setters
+}
+```
+
+#### Service Layer (Branch III)
+* Branch name:
+feature/crudproductserviceIII
+
+* Description:
+Once the DTOs are merged, the next step is the Service Layer. This layer will contain business logic for the CRUD operations and will interact with the repository (we assume that repositories are auto-generated for brevity).
+
+```java
+
+@Service
+public class ProductService {
+    @Autowired
+    private ProductRepository productRepository;
+
+    public ProductDTO createProduct(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        
+        productRepository.save(product);
+        productDTO.setId(product.getId());
+        return productDTO;
+    }
+
+    // Other CRUD methods
+}
+
+```
+
+##### Controller (Branch IV)
+
+* Branch name: feature/crudproductcontrollerIV
+
+* Description:
+Finally, after all the backend components are merged, we’ll create the Controller. The controller is the entry point for the application’s API and will make use of the Service Layer.
+
+```java
+
+@RestController
+@RequestMapping("/products")
+public class ProductController {
+    @Autowired
+    private ProductService productService;
+
+    @PostMapping
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        ProductDTO createdProduct = productService.createProduct(productDTO);
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    }
+
+    // Other CRUD endpoints
+}
+
+```
+By following this structure, you’ll maintain a clean, scalable, and easy-to-manage codebase. The small, incremental approach ensures that each component is reviewed thoroughly without overwhelming reviewers, reducing the risk of introducing bugs and improving the overall quality of the codebase.
