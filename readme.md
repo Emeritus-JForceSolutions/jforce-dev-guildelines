@@ -552,7 +552,7 @@ public class ProductDTO {
 
 #### Service Layer (Branch III)
 * Branch name:
-feature/crudproductserviceIII
+feature/1234-crudproduct-service-III
 
 * Description:
 Once the DTOs are merged, the next step is the Service Layer. This layer will contain business logic for the CRUD operations and will interact with the repository (we assume that repositories are auto-generated for brevity).
@@ -582,7 +582,7 @@ public class ProductService {
 
 ##### Controller (Branch IV)
 
-* Branch name: feature/crudproductcontrollerIV
+* Branch name: feature/1234-crudproduct-controller-IV
 
 * Description:
 Finally, after all the backend components are merged, we’ll create the Controller. The controller is the entry point for the application’s API and will make use of the Service Layer.
