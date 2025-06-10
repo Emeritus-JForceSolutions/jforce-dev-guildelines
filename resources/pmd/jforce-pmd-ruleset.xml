@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="https://pmd.github.io/pmd-7.0.0/ruleset"
+    name="Custom Repository Rules"
+    language="java"
+    minimumLanguageVersion="11">
+
+    <description>Custom rules to disallow @Query in repository interfaces</description>
+
+    <rule name="NoQueryAnnotationInRepository"
+        message="Avoid using @Query in repository interfaces"
+        class="net.sourceforge.pmd.lang.rule.xpath.XPathRule"
+        language="java">
+        <priority>2</priority>
+        <properties>
+            <property name="xpath">
+                <value><![CDATA[
+                    //MethodDeclaration[pmd-java:hasAnnotation("org.springframework.data.jpa.repository.Query")]
+                ]]></value>
+            </property>
+        </properties>
+    </rule>
+
+</ruleset>
