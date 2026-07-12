@@ -17,6 +17,8 @@
 
 ****
 
+### No use of any excel by developers can be to create payloads for api and manually hit production data. 
+
 ### 1. Run all necessary apps on your local system 
 
 ### 2. If a new task/card is assigned, go through the whole requirements thoroughly.
