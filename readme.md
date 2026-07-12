@@ -16,7 +16,8 @@
 ## 1. **Mandatory Development Rules**
 
 ****
-
+### Alerting for uptime/exception/resource monitoring.
+### No report to be created from backend/database. 
 ### No use of any excel by developers can be to create payloads for api and manually hit production data. 
 
 ### 1. Run all necessary apps on your local system 
