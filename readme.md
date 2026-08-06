@@ -62,6 +62,8 @@
 ### 17. Add work report of todo list status and adhoc work at 5 30 pm
 
 ### 18. Create every module restful with rest api
+#### 18.1 For POST APIs, logs must include the whole request body.
+#### 18.2 Audit trail should include all tables and all entries are mandatory.
 
 ### 19. Sevice Layer Method to have miniumn 80% Test Coverage
 
